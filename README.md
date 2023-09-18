@@ -1,8 +1,8 @@
 # AmonyCoffee
 
 ## Introduction
-AmonyCoffee is  Management Information System that is sought to help Emata Uganda Limited  fictitious client named Amony
-Farmers' Cooperative (AFC).
+AmonyCoffeeMIS is  a Management Information System that is sought to help Emata Uganda Limited's  fictitious client named Amony
+Farmers' Cooperative (AFC) has insights into the performance of the farmers and their businesses.
 
 
 
@@ -54,7 +54,11 @@ Ensure to check the version of docker installed
 ``` sh
 docker --version
 ```
-Build the Docker containers for the application:
+Ensure to install docker-compose into your local machine and check the version to ensure its installed 
+``` sh
+https://docs.docker.com/compose/install/
+```
+Build the Docker containers for the application :
 ``` sh
 docker-compose build
 ```
