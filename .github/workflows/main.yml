@@ -27,7 +27,7 @@ jobs:
         continue-on-error: false
 
   build-docker:
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
     # ensure the build has been successful before proceed to build docker
     needs: build
     strategy:
