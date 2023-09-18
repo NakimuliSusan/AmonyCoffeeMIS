@@ -1,0 +1,8 @@
+version: "3.9"  
+services:
+  app:
+    build: . # build the Docker image 
+    container_name: amonycoffee-new
+    ports:
+      - "8080:80"
+   
