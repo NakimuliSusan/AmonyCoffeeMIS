@@ -27,18 +27,18 @@ jobs:
         continue-on-error: false
 
   build-docker:
-    runs-on: ${{ matrix.os }}
+    runs-on: ubuntu-latest
     # ensure the build has been successful before proceed to build docker
     needs: build
-    strategy:
-      matrix:
-        os: [ubuntu-latest, macos-latest, windows-latest]
+    # strategy:
+    #   matrix:
+    #     os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      # - name: Start Docker
-      #   run: sudo service docker start
+      - name: Start Docker
+        run: sudo service docker start
 
       - name: Set up Docker BuildKit
         run: |
