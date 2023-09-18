@@ -54,11 +54,11 @@ Ensure to check the version of docker installed
 ``` sh
 docker --version
 ```
-Ensure to install docker-compose into your local machine 
+Ensure to install docker-compose into your local machine and check the version to ensure its installed 
 ``` sh
 https://docs.docker.com/compose/install/
 ```
-Build the Docker containers for the application and check the version to ensure its installed:
+Build the Docker containers for the application :
 ``` sh
 docker-compose build
 ```
