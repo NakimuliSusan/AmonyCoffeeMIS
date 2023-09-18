@@ -28,13 +28,10 @@ jobs:
 
   build-docker:
     runs-on: ${{ matrix.os }}
-# this will ensure the build must have been succesful 
     needs: build
-
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
