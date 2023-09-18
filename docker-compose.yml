@@ -1,0 +1,22 @@
+version: '3'
+services:
+  # Application container
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile  # Path to your Dockerfile for development
+    ports:
+      - "8080:80"  # Map port 80 in the container to port 8080 on the host
+    depends_on:
+      - db  # This ensures the application starts after the database container
+    environment:
+      - DATABASE_URL=Data Source=Data.db # SQLite database connection string
+    command: ["dotnet", "ef", "database", "update"]
+
+
+  # SQLite database container
+  db:
+    image: keinos/sqlite3:latest
+    volumes:
+      - ./Data.db:/var/lib/sqlite/Data.db  # Mount Data.db from the host root directory
+
