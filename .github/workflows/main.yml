@@ -37,10 +37,16 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker
-        uses: docker/setup-buildx-action@v1
+      - name: Start Docker
+        run: sudo service docker start
 
-      - name: Build Docker image with BuildKit
+      - name: Set up Docker BuildKit
         run: |
           export DOCKER_BUILDKIT=1
+        shell: bash
+
+      - name: Build Docker image
+        run: |
           docker build -t amonycoffee-new:latest .
+        env:
+          DOCKER_BUILDKIT: 1
