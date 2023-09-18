@@ -37,8 +37,8 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Start Docker
-        run: sudo service docker start
+      # - name: Start Docker
+      #   run: sudo service docker start
 
       - name: Set up Docker BuildKit
         run: |
