@@ -1,3 +1,11 @@
+# AmonyCoffee
+
+## Introduction
+AmonyCoffee is  Management Information System that is sought to help Emata Uganda Limited  fictitious client named Amony
+Farmers' Cooperative (AFC).
+
+
+
 # Instructions
 
 Languages used: C#
@@ -34,6 +42,32 @@ Run the app:
 ```dotnet run```
 
 Access the application on this URL: https://localhost:7208/
+
+To run the application with  docker 
+## Prerequisites
+Ensure you have the following tools installed on your development machine:
+- Docker: [Install Docker]
+```sh
+(https://docs.docker.com/get-docker/)
+```
+Ensure to check the version of docker installed 
+``` sh
+docker --version
+```
+Build the Docker containers for the application:
+``` sh
+docker-compose build
+```
+Start the application:
+
+``` sh
+docker-compose up -d
+```
+To stop the application and the database containers
+```sh
+docker-compose down
+```
+Access the application over this url (http://localhost:8080).
 
 
 

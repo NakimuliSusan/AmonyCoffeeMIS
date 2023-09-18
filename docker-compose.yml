@@ -1,22 +1,12 @@
-version: '3'
+version: "3.9"  
 services:
-  # Application container
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile  # Path to your Dockerfile for development
+    build: . # build the Docker image 
+    container_name: amonycoffee-new
     ports:
-      - "8080:80"  # Map port 80 in the container to port 8080 on the host
+      - "8080:80"
     depends_on:
-      - db  # This ensures the application starts after the database container
-    environment:
-      - DATABASE_URL=Data Source=Data.db # SQLite database connection string
-    command: ["dotnet", "ef", "database", "update"]
-
-
-  # SQLite database container
+      - db
   db:
-    image: keinos/sqlite3:latest
-    volumes:
-      - ./Data.db:/var/lib/sqlite/Data.db  # Mount Data.db from the host root directory
-
+    image: "keinos/sqlite3:latest"
+    container_name: amonycoffee_db
