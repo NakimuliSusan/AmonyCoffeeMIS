@@ -33,11 +33,30 @@ jobs:
       - name: Start Docker
         run: sudo service docker start
 
-      - name: Build Docker image
-        run: |
-          docker build -t amonycoffee-new:latest .
-          docker tag amonycoffee-new:latest amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
-          docker push amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
+      - name: 'Build and push image'
+          uses: azure/docker-login@v1
+          with:
+            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+            username: ${{ secrets.REGISTRY_USERNAME }}
+            password: ${{ secrets.REGISTRY_PASSWORD }}
+        - run: |
+            docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/amonycoffee-new:${{ github.sha }}
+            docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/amonycoffee-new:${{ github.sha }}
+
+      # - name: Build Docker image
+      #   run: |
+      #     docker build -t amonycoffee-new:latest .
+          
+      #     # Azure CLI Login
+      #     az acr login --name amonycoffeeregistry
+     
+      #     docker tag amonycoffee-new:latest amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
+      #     docker push amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
+
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Deploy to Azure App Service
         run: |
