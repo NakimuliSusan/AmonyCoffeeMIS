@@ -34,8 +34,12 @@ jobs:
         run: sudo service docker start
 
       - name: Azure Login
-        run: az login --service-principal -u ${{ secrets.AZURE_CREDENTIALS.clientId }} -p ${{ secrets.AZURE_CREDENTIALS.clientSecret }} --tenant ${{ secrets.AZURE_CREDENTIALS.tenantId }}
-
+        run: |
+          az login --service-principal -u ${{ secrets.AZURE_SP_CLIENT_ID }} -p ${{ secrets.AZURE_SP_CLIENT_SECRET }} --tenant ${{ secrets.TEST }}
+        env:
+          AZURE_SP_CLIENT_ID: ${{ secrets.AZURE_SP_CLIENT_ID }}
+          AZURE_SP_CLIENT_SECRET: ${{ secrets.AZURE_SP_CLIENT_SECRET }}
+          AZURE_SP_TENANT_ID: ${{ secrets.TEST }}
 
       - name: 'Build and push image'
         uses: azure/docker-login@v1
@@ -48,7 +52,6 @@ jobs:
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/amonycoffee-new:${{ github.sha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/amonycoffee-new:${{ github.sha }}
 
-
       # - name: Build Docker image
       #   run: |
       #     docker build -t amonycoffee-new:latest .
@@ -57,7 +60,6 @@ jobs:
       #     az acr login --name amonycoffeeregistry
       #     
       #     docker tag amonycoffee-new:latest amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
-      #     docker push amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
 
       - name: Deploy to Azure App Service
         run: |
