@@ -43,10 +43,9 @@ jobs:
           docker tag amonycoffee-new:latest amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
           docker push amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
 
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
+      - name: Debug Azure CLI
+        run: az --debug login --service-principal -u ${{ secrets.AZURE_CREDENTIALS.clientId }} -p ${{ secrets.AZURE_CREDENTIALS.clientSecret }} --tenant ${{ secrets.AZURE_CREDENTIALS.tenantId }} --output table
+
 
       - name: Deploy to Azure App Service
         run: |
