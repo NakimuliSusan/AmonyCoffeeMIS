@@ -36,7 +36,7 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t amonycoffee-new:latest .
-          az acr login -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }} amonycoffeeregistry.azurecr.io
+          az acr login --name amonycoffeeregistry     
           docker tag amonycoffee-new amonycoffeeregistry.azurecr.io/amonycoffeeregistry:latest
           docker push amonycoffeeregistry.azurecr.io/amonycoffeeregistry:latest
 
