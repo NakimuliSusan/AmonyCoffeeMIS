@@ -36,7 +36,6 @@ jobs:
       - name: Build Docker image
         run: |
           docker build -t amonycoffee-new:latest .
-      # Azure Container Registry Login
           az acr login -u ${{ secrets.ACR_USERNAME }} -p ${{ secrets.ACR_PASSWORD }} amonycoffeeregistry.azurecr.io
           docker tag amonycoffee-new amonycoffeeregistry.azurecr.io/amonycoffeeregistry:latest
           docker push amonycoffeeregistry.azurecr.io/amonycoffeeregistry:latest
