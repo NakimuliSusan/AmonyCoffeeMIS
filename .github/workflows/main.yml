@@ -33,6 +33,10 @@ jobs:
       - name: Start Docker
         run: sudo service docker start
 
+      - name: Azure Login
+        run: az login --service-principal -u ${{ secrets.AZURE_CREDENTIALS.clientId }} -p ${{ secrets.AZURE_CREDENTIALS.clientSecret }} --tenant ${{ secrets.AZURE_CREDENTIALS.tenantId }}
+
+
       - name: 'Build and push image'
         uses: azure/docker-login@v1
         with:
@@ -44,7 +48,7 @@ jobs:
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/amonycoffee-new:${{ github.sha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/amonycoffee-new:${{ github.sha }}
 
-      # Uncomment the following section if needed
+
       # - name: Build Docker image
       #   run: |
       #     docker build -t amonycoffee-new:latest .
