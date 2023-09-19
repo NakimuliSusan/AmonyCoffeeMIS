@@ -33,15 +33,21 @@ jobs:
       - name: Start Docker
         run: sudo service docker start
 
-    
       - name: Build Docker image
         run: |
           docker build -t amonycoffee-new:latest .
-          az acr login --name amonycoffeeregistry     
-          docker tag amonycoffee-new amonycoffeeregistry.azurecr.io/amonycoffeeregistry:latest
-          docker push amonycoffeeregistry.azurecr.io/amonycoffeeregistry:latest
+          
+          # Azure CLI Login
+          az acr login --name amonycoffeeregistry
+     
+          docker tag amonycoffee-new:latest amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
+          docker push amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
 
-    
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Deploy to Azure App Service
         run: |
           az webapp config container set --name amonycoffee --resource-group Amonycoffee --docker-custom-image-name amonycoffeeregistry.azurecr.io/amonycoffee-new:latest
